@@ -9,9 +9,12 @@ typedef double n_t;
 static const n_t kPi = acos(-1);
 static const n_t kEps = 1.e-5;
 
+
 int main()
 {
+#ifndef ONLINE_JUDGE
     freopen("input.txt", "rt", stdin);
+#endif
 
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -22,17 +25,15 @@ int main()
         auto t_2 = t1 * pow(a_2 / a_1, 1.5);
         t = fmod(t, t_2);
 
+        auto  c_2 = sqrt(a_2 * a_2 - b_2 * b_2);
         auto target_area = kPi * a_2 * b_2 * (t / t_2);
         n_t theta_lower = 0, theta_upper = 2 * kPi;
 
         for (int i = 0; i < 1000; ++i) {
             auto theta = (theta_lower + theta_upper) / 2;
-            auto scale = a_2 / b_2;
-            auto theta_scaled = atan(scale * tan(theta));
-            auto circle_sector_area = (theta_scaled * a_2 * a_2) / 2;
-            auto ellipse_sector_area = circle_sector_area / scale;
+            auto area = (theta * a_2 * b_2 / 2) - (b_2 * c_2 * sin(theta) / 2);
 
-            if (ellipse_sector_area < target_area)
+            if (area < target_area)
                 theta_lower = theta;
             else
                 theta_upper = theta;
