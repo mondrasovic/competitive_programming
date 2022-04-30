@@ -1,2 +1,0 @@
-https://www.spoj.com/problems/MST1/
-https://www.hackerrank.com/challenges/red-john-is-back/problem
